@@ -10,4 +10,11 @@ name="hblk"
 NAME="Hblk"
 version="0.0.1"
 
-source=""
+
+# Lists
+yoyo="http://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts"
+mvps="http://winhelp2002.mvps.org/hosts.txt"
+
+# Lists need to be downloaded into a temporary folder
+## Combine lists
+### Check for duplicates
