@@ -10,17 +10,13 @@ name="hblk"
 NAME="Hblk"
 version="0.0.1"
 
-# Lists
-yoyo="http://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts"
-mvps="http://winhelp2002.mvps.org/hosts.txt"
-
 
 # Curl or WGET?
-if [ -z "/bin/curl" ]; then
+if [ -e "/bin/curl" ]; then
     echo "Found curl, so we're using curl."
     dler="curl"
 else
-    if [ -z /bin/wget ]; then
+    if [ -e "/bin/wget" ]; then
 	echo "Found wget, so we'll use wget."
 	dler="wget"
     else
@@ -29,14 +25,30 @@ else
 fi
 
 
+lists() {
+    yoyo="http://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts"
+    mvps="http://winhelp2002.mvps.org/hosts.txt"
+
+    if
+}
+
+
 # Execution
 case $1 in
     update)
-	mkdir -p /tmp
-	$dler mvps $mvps ~/tmp
+	echo "Starting download!" && sleep 3 && \
+	    $dler $yoyo >> ~/.hblk/yoyo && \
+	    $dler $mvps >> ~/.hblk/mvps && \
+	    echo "Download complete! Starting sort!" && sleep 3 && \
+	    sort -u ~/.hblk >> ~/.hblk && \
+	    echo "Sort complete!" || echo "It goof'd"
+	;;
+
+    \?|-h|help|--help)
+
 	;;
 
     *)
-	echo "Error: $@: Try again"
+	echo "[Error] Option '$@' not found. Use ? or --help for syntax and examples"
 	;;
 esac
